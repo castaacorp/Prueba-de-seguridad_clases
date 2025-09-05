@@ -1,0 +1,136 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "variables": {
+      "main": [
+        [
+          {
+            "node": "exercises",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-21T11:22:52.679Z",
+  "id": "YeIFJfXQVtHLh9rD",
+  "isArchived": false,
+  "meta": null,
+  "name": "prueba: serivcio que no este en N8N",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "dfd96263-265c-47c4-8ae2-2afacd415320",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}/exercises",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-rapidapi-host",
+              "value": "exercisedb.p.rapidapi.com"
+            },
+            {
+              "name": "x-rapidapi-key",
+              "value": "={{ $json.apikey }}"
+            },
+            {
+              "name": "limit",
+              "value": "={{ $json.limit }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        496,
+        0
+      ],
+      "id": "40ca418a-5b0e-4708-af2e-b024cb5a51bf",
+      "name": "exercises"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "497c0bb7-6306-4cc3-a234-a6d6e5f3425b",
+              "name": "url",
+              "value": "https://exercisedb.p.rapidapi.com",
+              "type": "string"
+            },
+            {
+              "id": "47284064-ae9d-40eb-b1b7-421d361f569b",
+              "name": "limit",
+              "value": "2",
+              "type": "string"
+            },
+            {
+              "id": "b1d0293f-d3b0-4a00-ab1d-0e80390a22ec",
+              "name": "apikey",
+              "value": "25471e6d61msh0213ae6edd2349dp18046fjsn6d28abdc5c21",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "af8d28c4-cc76-438e-b595-6a80461cd39d",
+      "name": "variables"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-21T11:22:52.687Z",
+      "updatedAt": "2025-08-21T11:22:52.687Z",
+      "role": "workflow:owner",
+      "workflowId": "YeIFJfXQVtHLh9rD",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-21T11:47:21.000Z",
+  "versionId": "97ad1cbc-2f16-48e1-960a-4f00bce3892a"
+}
