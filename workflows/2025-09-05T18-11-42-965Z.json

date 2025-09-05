@@ -1,0 +1,137 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-25T09:21:50.076Z",
+  "id": "YxRzME5jqVMc62E5",
+  "isArchived": false,
+  "meta": null,
+  "name": "Prueba: Control de errores",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        16
+      ],
+      "id": "5235844c-ec51-42f0-b129-dc750601d457",
+      "name": "When chat message received",
+      "webhookId": "4bc76fec-80ba-4d1b-bda5-eab5f1a5a12e"
+    },
+    {
+      "parameters": {
+        "errorMessage": "¡Ha ocurrido un error! Te enviamos telegram"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        688,
+        64
+      ],
+      "id": "0c6434fe-9d6b-4554-a512-fd82f4e5b180",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9ab8f1aa-a724-4a97-a55d-b03db30c4b73",
+              "leftValue": "={{ $json.chatInput }}",
+              "rightValue": "hola",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        16
+      ],
+      "id": "aa0b4ce8-2eee-4926-99dc-34a33605171b",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        688,
+        -96
+      ],
+      "id": "483f5199-46ce-4a18-89d3-ff2a052bb196",
+      "name": "No Operation, do nothing"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-25T09:21:50.086Z",
+      "updatedAt": "2025-08-25T09:21:50.086Z",
+      "role": "workflow:owner",
+      "workflowId": "YxRzME5jqVMc62E5",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-25T09:23:00.000Z",
+  "versionId": "8658deb0-3b9c-4adc-88ee-92c5931b3f6d"
+}
