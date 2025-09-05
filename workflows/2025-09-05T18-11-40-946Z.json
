@@ -1,0 +1,97 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-22T08:17:26.058Z",
+  "id": "Q878aiCATA7akjoT",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Prueba bot telegram errores",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "dc71726b-dcdd-40f8-89fc-ecea433074c3",
+      "name": "Telegram Trigger",
+      "webhookId": "fddf6eb6-3626-4baa-8986-face1a512575",
+      "credentials": {
+        "telegramApi": {
+          "id": "mUTZgGx65j0KWDC9",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "=Eco: {{ $json.message.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "444258ac-aedd-4ceb-8049-2462b38e0823",
+      "name": "Send a text message",
+      "webhookId": "ad2fed76-ca4d-4dbc-ade3-1c12d0048678",
+      "credentials": {
+        "telegramApi": {
+          "id": "mUTZgGx65j0KWDC9",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-22T08:17:26.062Z",
+      "updatedAt": "2025-08-22T08:17:26.062Z",
+      "role": "workflow:owner",
+      "workflowId": "Q878aiCATA7akjoT",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-22T08:31:14.000Z",
+  "versionId": "09c0fd52-47b2-4743-8e7a-ef0d6f5e5a5c"
+}
