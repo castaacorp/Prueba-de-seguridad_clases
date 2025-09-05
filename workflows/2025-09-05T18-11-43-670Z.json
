@@ -1,0 +1,684 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GetImage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Add To Time",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extract part of time",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Format a date",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Substract date",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Summarize",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Compression",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetImage": {
+      "main": [
+        [
+          {
+            "node": "Image Format",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rename Keys": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Rename Keys",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-25T07:49:06.865Z",
+  "id": "Z23igkYySPXFIpTm",
+  "isArchived": false,
+  "meta": null,
+  "name": "Prueba transformación de datos",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "92414a2c-336d-490a-b47a-d5c35b131030",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -688,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/rss",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "bddc0ae7-ee1a-4f33-bd01-e16a913cd1df",
+      "name": "RSS Read",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -496,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "addToDate",
+        "magnitude": "={{ $json.isoDate }}",
+        "timeUnit": "weeks",
+        "duration": 10,
+        "options": {}
+      },
+      "id": "32fa5721-3f3a-495e-93cd-84ba806dbd4a",
+      "name": "Add To Time",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractDate",
+        "date": "={{ $json.isoDate }}",
+        "part": "hour",
+        "outputFieldName": "year",
+        "options": {
+          "includeInputFields": false
+        }
+      },
+      "id": "801ed292-a770-4e17-ba1f-a39555035fee",
+      "name": "Extract part of time",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        0,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.isoDate }}",
+        "format": "custom",
+        "customFormat": "dd-MM-yyyy",
+        "options": {}
+      },
+      "id": "d242b185-a834-488e-a88b-febd308d080e",
+      "name": "Format a date",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        0,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "subtractFromDate",
+        "magnitude": "={{ $json.isoDate }}",
+        "timeUnit": "years",
+        "duration": 20,
+        "options": {}
+      },
+      "id": "3f2eb89e-6b23-4fcb-aa6d-a4edc9457842",
+      "name": "Substract date",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        0,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "308bc1e5-5b7b-497b-8feb-8bcca5cf7c8f",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "=IA",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "485b5679-a932-44d9-9f46-6b1282ebb9a9",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "maxItems": 5,
+        "keep": "lastItems"
+      },
+      "id": "11858a8d-6d7d-44b8-87d1-34bfd8172af4",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        0,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "compare": "allFieldsExcept",
+        "fieldsToExclude": "creator",
+        "options": {}
+      },
+      "id": "9d1e945c-2ac5-4c3a-b47a-1da15b6593dc",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "link",
+        "options": {}
+      },
+      "id": "6bb14300-5dda-4eb5-94ba-6df8046e6768",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1184
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "link",
+              "renameField": true,
+              "outputFieldName": "enlace"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bf610329-ddf3-403b-9ef8-b23c806c83dd",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        192,
+        1184
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://es.wired.com/feed/negocios/rss",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "5475cc4c-3206-4c0c-a231-c449b3ab2d8b",
+      "name": "RSS Read1",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -480,
+        1344
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "creator"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "53986cac-3cc4-47e3-9f67-4413eaf0561e",
+      "name": "Summarize",
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "id": "2d2d002a-6670-4546-9013-c83cebf03da4",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        1680
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "compress",
+        "fileName": "=data_rss_{{ $runIndex }}.zip",
+        "binaryPropertyOutput": "rss"
+      },
+      "id": "18abf5cf-ac03-453f-a901-34ab56e657fc",
+      "name": "Compression",
+      "type": "n8n-nodes-base.compression",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        1680
+      ]
+    },
+    {
+      "parameters": {
+        "binaryData": true
+      },
+      "id": "36926dd7-7e45-4bda-bb74-b9081e5474c6",
+      "name": "Crypto",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        192,
+        1840
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://wallpapers.com/images/high/waving-logo-of-windows-95-om3nphkrq635dc8u.webp",
+        "options": {}
+      },
+      "id": "b5b0e60e-e66f-4409-840b-533206771e24",
+      "name": "GetImage",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -496,
+        1664
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "resize",
+        "height": 300,
+        "resizeOption": "ignoreAspectRatio",
+        "options": {
+          "fileName": "",
+          "format": "png",
+          "quality": 100
+        }
+      },
+      "id": "9a4b37bb-be5f-43ff-b1e3-ae87f4c6302f",
+      "name": "Image Format",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        1664
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "text": "VALENTIN AYESA PARA UDIA",
+        "fontSize": 35,
+        "fontColor": "#EF0F0F",
+        "options": {}
+      },
+      "id": "33aa5acb-19f3-4e01-9607-da9e19bdc260",
+      "name": "Edit Image",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        1824
+      ]
+    },
+    {
+      "parameters": {
+        "keys": {
+          "key": [
+            {
+              "currentKey": "creator",
+              "newKey": "medio"
+            },
+            {
+              "currentKey": "title",
+              "newKey": "titulo"
+            }
+          ]
+        },
+        "additionalOptions": {}
+      },
+      "id": "c4e62c7a-c46d-41b6-8ccc-85ff5c6281da",
+      "name": "Rename Keys",
+      "type": "n8n-nodes-base.renameKeys",
+      "typeVersion": 1,
+      "position": [
+        208,
+        1360
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "pubDate",
+              "order": "descending"
+            },
+            {
+              "fieldName": "medio"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "df50c54a-3937-4b28-b22b-b9127b8d0620",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        432,
+        1360
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "a277aef3-adfc-450e-8a51-ae0606ece604",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        0,
+        1360
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Añadir tiempo a una fecha \nPor ejemplo si queremos un sistema de suscripciones y controlar cuando una persona tiene que renovar o cancelarla \n(https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        112,
+        -48
+      ],
+      "typeVersion": 1,
+      "id": "409dad2b-3401-4d1d-8aba-9a90af3a5315",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Exraer el año/mes/... de la ISO Date\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        192,
+        144
+      ],
+      "typeVersion": 1,
+      "id": "284cd13d-ac08-4b0d-83a1-de58bfaff66a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Darle formato a la fecha\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        192,
+        336
+      ],
+      "typeVersion": 1,
+      "id": "acf54008-de0c-46db-a789-823171d5daf4",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Restar tiempo a una fecha\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        192,
+        512
+      ],
+      "typeVersion": 1,
+      "id": "5301f184-4297-4ed3-b5e4-f2791f99eb31",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Eliminar duplicados\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        192,
+        992
+      ],
+      "typeVersion": 1,
+      "id": "eda6472b-d590-4b73-b818-a10821f597e0",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Separar de una lista de elementos\nEjemplo si queremos sacar los links, esto sirve para scrapear"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        416,
+        1168
+      ],
+      "typeVersion": 1,
+      "id": "8aef8262-2a58-4724-9f6e-82b0c48bf4b2",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Podemos cambiar los nombres por ejemploen vez de creator, titulo\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        288,
+        1424
+      ],
+      "typeVersion": 1,
+      "id": "77c55f52-5170-4c67-99fc-910a1d355592",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## IMPORTANTE PARA QUE SEA SEGURO EL ARCHIVO\n \n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        384,
+        1856
+      ],
+      "typeVersion": 1,
+      "id": "99851845-8a92-4a16-8cdc-3af18b9c4af9",
+      "name": "Sticky Note7"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-25T07:49:06.868Z",
+      "updatedAt": "2025-08-25T07:49:06.868Z",
+      "role": "workflow:owner",
+      "workflowId": "Z23igkYySPXFIpTm",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-25T08:54:50.000Z",
+  "versionId": "28d785ce-bc39-4efb-a7a3-e83890c86e05"
+}
