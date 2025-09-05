@@ -1,0 +1,117 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-25T08:58:10.603Z",
+  "id": "nQPWejWvTsHetWXi",
+  "isArchived": false,
+  "meta": null,
+  "name": "Prueba Nodo funciones (codigo)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a73bab10-ba88-4513-983a-f6ea2f0ba8a1",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.techradar.com/rss",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "6e811c7e-5773-42ae-84ef-68ff7155b78a",
+      "name": "RSS Read",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        -144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code node (JavaScript)\n\nfunction pickFromSrcset(srcset) {\n  if (!srcset) return null;\n  // srcset: \"https://a.jpg 320w, https://b.jpg 640w\"\n  const first = String(srcset).split(',')[0].trim();\n  const url = first.split(/\\s+/)[0];\n  return url || null;\n}\n\nfunction extractFirstImg(html) {\n  if (!html) return null;\n  const imgTag = String(html).match(/<img\\b[^>]*>/i);\n  if (!imgTag) return null;\n\n  const tag = imgTag[0];\n\n  // Try src=\n  const srcMatch = tag.match(/\\ssrc\\s*=\\s*[\"']([^\"']+)[\"']/i);\n  if (srcMatch && srcMatch[1]) return srcMatch[1];\n\n  // Fallback data-src=\n  const dataSrc = tag.match(/\\sdata-src\\s*=\\s*[\"']([^\"']+)[\"']/i);\n  if (dataSrc && dataSrc[1]) return dataSrc[1];\n\n  // Fallback srcset=\n  const srcsetMatch = tag.match(/\\ssrcset\\s*=\\s*[\"']([^\"']+)[\"']/i);\n  if (srcsetMatch && srcsetMatch[1]) return pickFromSrcset(srcsetMatch[1]);\n\n  return null;\n}\n\nreturn items.map(item => {\n  const j = item.json || {};\n\n  // 1) enclosure.url (si es imagen)\n  let image =\n    (j.enclosure && typeof j.enclosure === 'object' && j.enclosure.url &&\n     (!j.enclosure.type || String(j.enclosure.type).startsWith('image/')))\n      ? j.enclosure.url\n      : null;\n\n  // 2) media:content / media:thumbnail (algunos feeds lo usan)\n  if (!image && j['media:content'] && j['media:content'].url) {\n    image = j['media:content'].url;\n  }\n  if (!image && j['media:thumbnail'] && j['media:thumbnail'].url) {\n    image = j['media:thumbnail'].url;\n  }\n\n  // 3) content:encoded (HTML)\n  if (!image) {\n    image = extractFirstImg(j['content:encoded']);\n  }\n\n  // 4) content (a veces también trae HTML)\n  if (!image) {\n    image = extractFirstImg(j.content);\n  }\n\n  // Opcional: normaliza URLs relativas si existiera 'link' base\n  if (image && /^\\/\\//.test(image)) {\n    // protocolo relativo -> asume https\n    image = 'https:' + image;\n  }\n\n  // Añade el campo 'image' si lo encontramos\n  if (image) {\n    item.json = { ...j, image };\n  } else {\n       item.json = { ...j, image: null };\n  }\n\n  return item;\n});\n"
+      },
+      "id": "34d82c01-b8ff-4bf5-a543-c007cda69683",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        -224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n Code node (JavaScript)\n\nreturn items.map(item => {\n  const j = item.json || {};\n  const title = j.title || \"\";\n\n  if (title.includes(\"Open Source\")) {\n    item.json = { ...j, Udia: true };\n  } else {\n    item.json = { ...j, Udia: false };\n  }\n\n  return item;\n});\n\n"
+      },
+      "id": "4c21c358-8e0d-4d3b-932e-2d907b4d0446",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        -48
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-25T08:58:10.608Z",
+      "updatedAt": "2025-08-25T08:58:10.608Z",
+      "role": "workflow:owner",
+      "workflowId": "nQPWejWvTsHetWXi",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-25T09:18:15.000Z",
+  "versionId": "858ad5a9-daca-449c-ada7-a61e1cb24780"
+}
