@@ -1,0 +1,116 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get many bases",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-22T09:23:18.982Z",
+  "id": "rroKdFgZlTyTzdIv",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Prueba credenciales",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6f738ebb-ecc2-46b5-9dfd-aacab2e43573",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "base",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        -112
+      ],
+      "id": "4566cecf-5cb4-4a1e-86df-7254938e6e63",
+      "name": "Get many bases",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "N0ebEBR3RsQTsduW",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "o4-mini-2025-04-16",
+          "mode": "list",
+          "cachedResultName": "O4-MINI-2025-04-16"
+        },
+        "messages": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        208,
+        128
+      ],
+      "id": "a497627f-ed79-4e54-9405-a1ecc67a6687",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "MfcA1FNPBDJY6HnI",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-22T09:23:18.989Z",
+      "updatedAt": "2025-08-22T09:23:18.989Z",
+      "role": "workflow:owner",
+      "workflowId": "rroKdFgZlTyTzdIv",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-22T09:55:57.000Z",
+  "versionId": "4b61c763-050c-405b-9f99-5405f4715930"
+}
