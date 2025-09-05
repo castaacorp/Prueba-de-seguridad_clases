@@ -1,0 +1,85 @@
+{
+  "active": false,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-25T09:25:01.918Z",
+  "id": "OnYaLrMfOgDtkFea",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Prueba: Errores donde te mandan mensaje al telegram",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "96c15c6c-7ae7-4b84-9438-9b6e79287e7b",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "chatId": "1107921932",
+        "text": "=Error: {{ $json.execution.error.message }}\n\nUltimo nodo ejecutado: {{ $json.execution.lastNodeExecuted }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c07cb23a-bd95-4e69-914b-16614819d1e5",
+      "name": "Send a text message",
+      "webhookId": "9186432c-dc90-42b0-8518-57e90cca3019",
+      "credentials": {
+        "telegramApi": {
+          "id": "mUTZgGx65j0KWDC9",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-25T09:25:01.925Z",
+      "updatedAt": "2025-08-25T09:25:01.925Z",
+      "role": "workflow:owner",
+      "workflowId": "OnYaLrMfOgDtkFea",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-25T09:32:00.000Z",
+  "versionId": "ce90450d-7b64-4c0b-b58b-302c825638a6"
+}
