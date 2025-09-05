@@ -1,0 +1,320 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "MySQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MySQL": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "OpenAI1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "OpenAI1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Assign file to VS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "OpenAI1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-27T08:34:12.825Z",
+  "id": "BzhbuOin6xXcxhVb",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "No terminado Entrenar asistente Open AI",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## MY SQL\nLOs linros se tienen en una base de datos y lo mas abitual es aqui"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        608,
+        -560
+      ],
+      "typeVersion": 1,
+      "id": "7db59414-0680-4738-ad63-8e046b5ee2d2",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "id": "c67f008f-1cf0-451d-8692-17e1b58f0bba",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        688,
+        -224
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM libros",
+        "options": {}
+      },
+      "id": "d3bb5620-bda8-4039-87ee-2c8ede3d418c",
+      "name": "MySQL",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        880,
+        -224
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "CvxIihckZnitNXxu",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtiene los datos del nodo anterior (el JSON que has proporcionado)\nconst items = $input.all();\n\n// Inicializa un array vacío para almacenar las líneas del archivo\nlet lines = [];\n\n// Recorre cada objeto del array y forma una línea con la información necesaria\nitems.forEach(item => {\n  const line = `Nombre: ${item.json.nombre} - Editorial: ${item.json.editorial} - Resumen: ${item.json.resumen} - Precio: ${item.json.precio}€ Stock: ${item.json.stock}`;\n  lines.push(line);\n});\n\n// Une todas las líneas con saltos de línea y crea el contenido del archivo\nconst fileContent = lines.join('\\n');\n\n// Convierte el contenido en un buffer binario\nconst buffer = Buffer.from(fileContent, 'utf-8');\n\n// Genera el timestamp Unix\nconst timestamp = Math.floor(Date.now() / 1000);\n\n// Devuelve el archivo como binario con el nombre libros_{timestamp_unix}.txt\nreturn {\n  binary: {\n    data: {\n      fileName: `libros_${timestamp}.txt`,\n      mimeType: 'text/plain',\n      data: buffer.toString('base64')\n    }\n  }\n};\n"
+      },
+      "id": "d39766b4-d526-431e-ae6f-ec2adfc09ed4",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        -224
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "binary.data.data",
+        "options": {
+          "fileName": "={{ $json.binary.data.fileName }}"
+        }
+      },
+      "id": "37276423-85e2-453d-b038-9b02c4402a8f",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1216,
+        -224
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "edb2e56e-6df4-4d73-9100-218fec28efa4",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        1072,
+        224
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "3329e16a-a7ff-43cb-a248-e778599caa39",
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        912,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "binaryPropertyName": "=data",
+        "options": {
+          "purpose": "assistants"
+        }
+      },
+      "id": "c1cb2f55-8214-4f38-8817-10a1ff31d677",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.5,
+      "position": [
+        1360,
+        -224
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "MfcA1FNPBDJY6HnI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": " https://api.openai.com/v1/vector_stores/vs_67a78c1e0a08819192d6b1d389f179a2/files",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <TUAPIKEY>"
+            },
+            {
+              "name": "OpenAI-Beta",
+              "value": "assistants=v2"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file_id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "40f2e457-25fd-41e2-a177-d5e88362a65d",
+      "name": "Assign file to VS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1488,
+        -224
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "assistant",
+        "assistantId": {
+          "__rl": true,
+          "value": "asst_9ntoAWji8Ga74cJ6YvpliDlm",
+          "mode": "list",
+          "cachedResultName": "udia_libros"
+        },
+        "options": {}
+      },
+      "id": "ab01e810-5bf0-42a1-a595-ff0254559c96",
+      "name": "OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.5,
+      "position": [
+        848,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hola, ¿qué libro te interesa hoy?\n",
+        "options": {}
+      },
+      "id": "57091705-6aa1-46e4-ada4-6dc3c08f1193",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        16
+      ],
+      "webhookId": "4f2c335a-6c4a-446d-b5e5-bb3f82ca89f0"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-27T08:34:12.830Z",
+      "updatedAt": "2025-08-27T08:34:12.830Z",
+      "role": "workflow:owner",
+      "workflowId": "BzhbuOin6xXcxhVb",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-09-05T18:11:25.000Z",
+  "versionId": "c3d0af0c-e92e-4d01-bc6d-ded6d64a5cba"
+}
