@@ -1,0 +1,168 @@
+{
+  "active": false,
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-21T08:52:18.122Z",
+  "id": "TiDNJdrKw1zS4xSF",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "prueba formulario",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "newsletter Udia N8N",
+        "formDescription": "Las últimas noticias de N8N en tu email",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nombre",
+              "placeholder": "Aquí tu nombre",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "placeholder": "Tu email",
+              "requiredField": true
+            },
+            {
+              "fieldType": "html",
+              "elementName": "política de privacidad",
+              "html": "  <input type=\"checkbox\" name=\"acepto\" required>\n    Acepto la <a href=\"/politica-de-privacidad\" target=\"_blank\">Política de Privacidad</a>.\n\n\n"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8198b360-4af0-429f-8319-1789435ac861",
+      "name": "On form submission",
+      "webhookId": "b87c9fa8-bfba-4136-9761-2214af3534f7"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1vfw2W5V4ueHu1qVSyVVKSpo2bkjLkXzTEdAFvTEfMU4/edit?hl=es&pli=1&gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vfw2W5V4ueHu1qVSyVVKSpo2bkjLkXzTEdAFvTEfMU4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $json.Email }}",
+            "Nombre": "={{ $json.Nombre }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b10aecff-8f48-49b2-9e8e-81a0b8b8bb2b",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nE8CfgH46CtfeLtK",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Madrid",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-08-21T08:52:18.135Z",
+      "updatedAt": "2025-08-21T08:52:18.135Z",
+      "role": "workflow:owner",
+      "workflowId": "TiDNJdrKw1zS4xSF",
+      "projectId": "wxi7Ju6brgdObMVS"
+    }
+  ],
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-21T11:21:46.555Z",
+      "updatedAt": "2025-08-21T11:21:46.555Z",
+      "id": "1NZjJWy2fhwF2gmV",
+      "name": "🔴inactivo"
+    },
+    {
+      "createdAt": "2025-08-21T09:46:36.748Z",
+      "updatedAt": "2025-08-21T09:46:36.748Z",
+      "id": "2UDU9vauwEBylgQe",
+      "name": "🧾formulario"
+    },
+    {
+      "createdAt": "2025-08-21T11:25:19.532Z",
+      "updatedAt": "2025-08-21T11:25:19.532Z",
+      "id": "TGCYRPUd9n8yo2cB",
+      "name": "📒clase"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-21T11:25:48.000Z",
+  "versionId": "8c9f18de-dfa1-41e8-911e-14e234664540"
+}
